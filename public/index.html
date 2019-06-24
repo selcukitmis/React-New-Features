@@ -35,4 +35,16 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+  window.addEventListener('load', e => {
+    if ('serviceWorker' in navigator) {
+        try {
+            navigator.serviceWorker.register('serviceWorker.js');
+            console.log('SW registered');
+        } catch (error) {
+            console.log('SW failed');
+
+        }
+    }
+});</script>
 </html>

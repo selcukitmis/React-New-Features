@@ -1,26 +1,52 @@
-import React from 'react';
+import React,{ useState,useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+const App = (props) => { 
+  const [count,setCount] = useState(props.count)
+  const [text,setText] = useState('')
+  const [state,setState] = useState({ count : props.count, text : props.text })
+  useEffect(() => {
+    console.log("Here will run when count changes")
+    document.title = count
+  },[count])
+
+  useEffect(() => {
+    console.log("Here will run once!")
+    document.title = count
+  },[])
+
+
+   return(
+     <div>
+       <p>Current {text} is { count }</p>
+       <button onClick={ () => { setCount( count + 1 ) } }>Increment +1</button><br />
+       <button onClick={ () => { setCount( count - 1 ) } }>Increment -1</button><br />
+       <button onClick={ () => { setCount(props.count) } }>Reset</button><br />
+       <input value={text} onChange={ (e) => { setText(e.target.value) } } />
+     </div>
+   )
+ }
+
+/*const App = (props) => { 
+ const [count, setCount] =  useState(props.count)
+ const [text, setText] =  useState(props.text)
+  return(
+    <div>
+      <p>Current {text} is { count }</p>
+      <button onClick={ () => { setCount(count + 1) } }>Increment +1</button><br />
+      <button onClick={ () => { setCount(count - 1) } }>Increment -1</button><br />
+      <button onClick={ () => { setCount(props.count) } }>Reset</button><br />
+      <input value={text} onChange={ (e) => { setText(e.target.value) } } />
     </div>
-  );
+  )
+}*/
+
+App.defaultProps = {
+  count : 10,
+  text : "count"
 }
 
-export default App;
+export default App
